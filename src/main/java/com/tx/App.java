@@ -29,7 +29,7 @@ public class App {
 	private static Map<String, Rate> output = new HashMap<String, Rate>();
 
 	@SuppressWarnings("deprecation")
-	public static void main(String[] args) throws Exception {
+	public  void maintest(String[] args) throws Exception {
 		System.out.println("==============================================================================");
 		System.out.println("||                              PHAN TICH DU LIEU XT                        ||");
 		System.out.println("||                                       + Tong hop du lieu output          ||");

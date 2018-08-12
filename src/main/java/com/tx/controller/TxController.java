@@ -1,5 +1,8 @@
 package com.tx.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -21,9 +24,15 @@ public class TxController {
 	@Value("${sample}")
 	private int sample = 11;
 
+	private static final String RESULT = "/result.txt";
+	private static String buffer = "";
+	@Value("${path}")
+	private String path;
+	
 	@PostConstruct
-	public void lastResult() {
-		
+	public void lastResult() throws IOException {
+		File file = new File(path + RESULT);
+		buffer = new String(Files.readAllBytes(file.toPath()));
 	}
 	
 	@RequestMapping("/")
@@ -31,6 +40,7 @@ public class TxController {
 		model.put("size", this.size);
 		model.put("rate", this.rate);
 		model.put("sample", this.sample);
+		model.put("buffer", this.buffer);
 		return "live";
 	}
 
