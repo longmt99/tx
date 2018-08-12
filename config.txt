@@ -1,0 +1,8 @@
+# Do dai cuar chuoi thu ban dau
+size=12
+# Ty le loc
+rate=80
+#So lan xuat hien it nhat
+min=2
+#Tong so lan xuat hien XT
+sample=11
