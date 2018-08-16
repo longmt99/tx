@@ -1,5 +1,12 @@
 package com.tx.model;
 
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Rate {
 	private String feed;
 	private int xrate;
@@ -28,43 +35,4 @@ public class Rate {
 	public String toOuput() {
 		return "Input " + feed + " ---> {" + feed + "X - " + feed + "T} --> [" + xcount + " - " + tcount + "] --> [" + xrate + " - "		+ trate + "]";
 	}	
-	public String getFeed() {
-		return feed;
-	}
-
-	public void setFeed(String feed) {
-		this.feed = feed;
-	}
-
-	public int getXrate() {
-		return xrate;
-	}
-
-	public void setXrate(int xRate) {
-		this.xrate = xRate;
-	}
-
-	public int getTrate() {
-		return trate;
-	}
-
-	public void setTrate(int tRate) {
-		this.trate = tRate;
-	}
-
-	public int getXcount() {
-		return xcount;
-	}
-
-	public void setxCount(int xCount) {
-		this.xcount = xCount;
-	}
-
-	public int getTcount() {
-		return tcount;
-	}
-
-	public void setTcount(int tCount) {
-		this.tcount = tCount;
-	}
 }

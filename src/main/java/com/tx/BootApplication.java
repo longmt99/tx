@@ -3,6 +3,7 @@ package com.tx;
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Files;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.tx.common.DateUtils;
 import com.tx.common.Utils;
+import com.tx.model.Result;
 
 @SpringBootApplication
 public class BootApplication {
@@ -30,24 +33,41 @@ public class BootApplication {
 	@PostConstruct
 	public void init() throws Exception {
 		log.info("Update kết quả dữ liệu mới nhất " + path);
-		int id = 10;
+		int id = 31500;
 		File file = new File(path + RESULT);
-		String content = new String(Files.readAllBytes(file.toPath()));
-		buffer = StringUtils.escape(content);
-		System.out.println("\n3. Chuoi du lieu se chay");
-		System.out.println("  ===== " + buffer);
+		String result = new String(Files.readAllBytes(file.toPath()));
+		buffer = StringUtils.escape(result);
+		log.info("\n3. Chuoi du lieu se chay");
+		log.info("  ===== " + buffer);
+		log.info("Lấy kết quả từ web id [" + id + "]");
+		int sleepCount = 0;
 		while (true) {
-			log.info("Lấy kết quả từ web id [" + id + "]");
-			String res = Utils.getResult(id);
-			content += res;
+			Result response = Utils.getResult(id);
+			if(response==null) {
+				log.info(" continue id " +id);
+				continue;
+			}
+			result += response;
 			id++;
-			if (id >= 15) {
+			Date before = DateUtils.getDateBefore(new Date(), 80);
+			Date responseTime = response.getTime();
+			if(responseTime.after(before)){
+				log.info("In sleep count [" + sleepCount + "] ");
+				Thread.sleep(5*1000);
+				++sleepCount;
+				log.info("Out sleep count [" + sleepCount + "] ");
+			}else {
+				log.info("GOT [" + id + "] " + response.getTx() +"," + DateUtils.toDateString(responseTime));
+				sleepCount = 0;
+			}
+			if(sleepCount>=20) {
+				log.error(" NO RESPONSE in sleep count [" + sleepCount + "] ");
 				break;
 			}
 		}
 
 		FileWriter writer = new FileWriter(path + RESULT);
-		writer.write(content);
+		writer.write(result);
 		writer.flush();
 		writer.close();
 	}
