@@ -1,16 +1,22 @@
 package com.tx;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.util.Date;
 
-import org.apache.commons.io.FileUtils;
+import com.tx.common.DateUtils;
 
 public class Test {
 
 	public static void main(String[] args) throws IOException {
-		String content = FileUtils.readFileToString(new File("input.txt"),Charset.defaultCharset());
-		System.out.println(content.length());
+		
+		//String content = FileUtils.readFileToString(new File("input.txt"),Charset.defaultCharset());
+		//System.out.println(content.length());
+		
+		Date now = new Date();
+		System.out.println(DateUtils.toDateString(now));
+		
+		System.out.println(DateUtils.toDateString(DateUtils.getDateAfter(now, 100)));
+		
 	}
 
 }

@@ -56,7 +56,7 @@ public final class DateUtils {
 	}
 	/**
 	 * @param string to Date: 30-12-2011 10:10:10
-	 * @param format "DD-MM-YYYY hh:mm:ss"
+	 * @param format "HH:mm:ss dd/MM/yyyy"
 	 * @return Date
 	 */
 	
@@ -178,10 +178,10 @@ public final class DateUtils {
 	 * @param second
 	 * @return
 	 */
-	public static Date getDateBefore(Date date, int second) {
+	public static Date getDateAfter(Date date, int second) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(Calendar.SECOND, -second);
+		calendar.add(Calendar.SECOND, second);
 		return calendar.getTime();
 	}
 	

@@ -48,8 +48,8 @@ public class Utils {
 				String timestamp = (String) resultTX.get("timestamp");
 				String tx = (dice1 + dice2 + dice3) < 11 ? "X" : "T";
 				Date time = DateUtils.toDate(timestamp);
-				result =new Result(tx, time);
-				
+				result = new Result(tx, time);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
