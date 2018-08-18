@@ -16,7 +16,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/l">Live</a>
+				<a class="navbar-brand" href="/live">Live</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
@@ -37,42 +37,47 @@
 				<tr>
 					<td align="right"><h2>
 							<span th:text="'===' + ${buffer}"></span> 
-							<span style="color: BLUE">[?]</span>
+							<span style="color: BLUE">[?]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						</h2></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td align="right">
-						<h2><span th:text="'('+${size} + ') ' + ${input}"></span><span style="color: BLUE">[X]</span></h2>
+						<h2><span th:text="'('+${size0} + ') ' + ${input0}"></span><span style="color: BLUE">[X][T]</span></h2>
 					</td>
 					<td>
-						<h2><span style="color: GREEN" th:text="' ===> Tỉ lệ : '+${xRate} +'%' + ' ('+${xCount}+')'"></span></h2>
+						<h2><span style="color: GREEN" th:text="' ==> ['+${xRate0} + '%] ['+${tRate0} +'%]'"></span>
+						<span style="color: DarkGray" th:text="'('+${xCount0} +') ('+${tCount0}+')'"></span></h2>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">
-						<h2><span th:text="'('+${size} + ') ' + ${input}"></span><span style="color: BLUE">[T]</span></h2>
+						<h2><span th:text="'('+${size1} + ') ' + ${input1}"></span><span style="color: BLUE">[X][T]</span></h2>
 					</td>
 					<td>
-						<h2><span style="color: GREEN" th:text="' ===> Tỉ lệ : '+${tRate} +'%' + ' ('+${tCount}+')'"></span></h2>
+						<h2><span style="color: GREEN" th:text="' ==> ['+${xRate1} + '%] ['+${tRate1} +'%]'"></span>
+						<span style="color: DarkGray" th:text="'('+${xCount1} +') ('+${tCount1}+')'"></span></h2>
 					</td>
 				</tr>
+				<tr>
+					<td align="right">
+						<h2><span th:text="'('+${size2} + ') ' + ${input2}"></span><span style="color: BLUE">[X][T]</span></h2>
+					</td>
+					<td>
+						<h2><span style="color: GREEN" th:text="' ==> ['+${xRate2} + '%] ['+${tRate2} +'%]'"></span>
+						<span style="color: DarkGray" th:text="'('+${xCount2} +') ('+${tCount2}+')'"></span></h2>
+					</td>
+				</tr>
+				
 			</table>
-			<h2>
-				<span th:text="'===' + ${buffer}"></span><span style="color: BLUE">[?]</span>
-			</h2>
+			
 			<h4>
-				<span th:text="'Độ dài chuỗi thử: ' + ${size}"></span>
+				<span th:text="'Độ dài chuỗi thử: ' + ${sizes}"></span>
 			</h4>
 			<h4>
 				<span th:text="'Số mẫu thử ít nhất: ' + ${sample}"></span>
 			</h4>
 
-			<h2>
-				<span th:text="'===' + ${input}"></span><span style="color: BLUE">[T]</span>
-				<span style="color: GREEN"
-					th:text="'===> Tỉ lệ : '+${tRate} +'%' + ' ('+${tCount}+')'"></span>
-			</h2>
 		</div>
 
 	</div>

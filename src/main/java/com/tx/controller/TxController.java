@@ -29,7 +29,7 @@ public class TxController {
 
 	@RequestMapping(value={"", "/", "/live"})
 	public String live(Map<String, Object> model, 
-			@RequestParam(required =false, defaultValue="8") String sizes,
+			@RequestParam(required =false, defaultValue="8-9-10") String sizes,
 			@RequestParam(required =false, defaultValue="80") int rate,
 			@RequestParam(required =false, defaultValue="10") int sample) throws IOException {
 		String path = System.getProperty("path");
@@ -42,22 +42,26 @@ public class TxController {
 		String buffer = splits[0];
 		int id = Integer.parseInt(splits[1]);
 		++id;
-		String[] sz = StringUtils.split(sizes,"-");
-		String liveBuffer = buffer.substring(buffer.length()-22);
-		int size = Integer.parseInt(sz[0]);
-		model.put("size", sz[0]);
+		String[] sz = StringUtils.split(sizes, "-");
+		String liveBuffer = buffer.substring(buffer.length() - 22);
+		for (int idx = 0; idx < sz.length; idx++) {
+			int size = Integer.parseInt(sz[idx]);
+			model.put("size" + idx, sz[idx]);
+			String input = buffer.substring(buffer.length() - size + 1);
+			Rate xtRate = findString(buffer, input, sample);
+			model.put("input" + idx, input);
+			model.put("xRate" + idx, xtRate.getXrate());
+			model.put("xCount" + idx, xtRate.getXcount());
+			model.put("tRate" + idx, xtRate.getTrate());
+			model.put("tCount" + idx, xtRate.getTcount());
+		}
+		model.put("id", id);
 		model.put("sample", sample);
 		model.put("buffer", liveBuffer);
-		model.put("id", id);
+		model.put("sizes", sizes);
 		model.put("time", splits[2]);
 		
-		String input = buffer.substring(buffer.length()-size+1);
-		Rate xtRate = findString(buffer,input,sample);
-		model.put("input", input);	
-		model.put("xRate", xtRate.getXrate());
-		model.put("xCount", xtRate.getXcount());
-		model.put("tRate", xtRate.getTrate());
-		model.put("tCount", xtRate.getTcount());
+		
 	
 		return "live";
 	}

@@ -61,9 +61,9 @@ public class TXThread implements Runnable {
 
 					log.info("Sau quá trìn đợi [" + sleepCount + "] " + id);
 					log.info("Kiểm tra kết quả với id " + id);
-					if (sleepCount >= 600) {
+					if (sleepCount >= 50) {
 						log.error(" Không thể lấy được dữ liệu trong lần thứ [" + sleepCount + "] ");
-						break;
+						//break;
 					}
 				} else {
 					buffer += response.getTx();

@@ -132,45 +132,6 @@ public final class DateUtils {
 		return to;
 	}
 	
-	/**
-	 * GMT format ago day
-	 * @param ago
-	 * @return Date
-	 */
-	public static Date getDateGMT(int ago){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(getNowGMT());
-		calendar.add(Calendar.DATE, ago);
-		return   calendar.getTime();
-		
-	}
-
-	/**
-	 * Get GMT now
-	 * @return
-	 */
-	public static Date getNowGMT() {
-		try {
-			SimpleDateFormat dateFormatGmt = new SimpleDateFormat(JConstants.TIME_ZONE);
-			dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));// -06:00 and +7
-			// Local time zone
-			SimpleDateFormat dateFormatLocal = new SimpleDateFormat(JConstants.TIME_ZONE);
-			// Time in GMT
-			return dateFormatLocal.parse(dateFormatGmt.format(new Date()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	/**
-	 * Compare Date is today 
-	 * @param dateTime
-	 * @return
-	 */
-	public static boolean isToday(Date dateTime) {
-		return toDateString(getNowGMT()).substring(0,10).equals(toDateString(dateTime).substring(0,10));
-	}
 	
 	/**
 	 * Get before minutes from specified date
@@ -185,9 +146,7 @@ public final class DateUtils {
 		return calendar.getTime();
 	}
 	
-	public static String toNow() {
-		return toDateString(new Date(),JConstants.yyMMddHHmmss);
-	}
+	
 	
 	public static Date fromStringToDateForFormatter(String date, String dateTimePattern) throws ParseException {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(dateTimePattern);
