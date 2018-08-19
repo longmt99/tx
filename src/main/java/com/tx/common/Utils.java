@@ -9,13 +9,19 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.tx.model.Rate;
 import com.tx.model.Result;
 
 public class Utils {
+	static Logger log = LoggerFactory.getLogger(Utils.class.getName());
+	
 	public static Result getResult(int id) {
-
+		
 		Result result = null;
 		StringBuilder content = new StringBuilder();
 		String theUrl = "http://portal.api-core.net/api?c=102&mt=1&at=&rid=" + id;
@@ -57,26 +63,32 @@ public class Utils {
 		return result;
 
 	}
-
-
 	/**
-	 * String fileName = "result.txt";
+	 * X or T or ""
 	 * 
-	 * @param fileName
+	 * @param feed
+	 * @param rate
 	 * @return
-	 * @throws IOException
 	 */
-	public static String readFile(String fileName) throws IOException {
+	
+	public static Rate findString(String buffer, String feed) {
+		Rate result = new Rate();
 
-		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-		File file = new File(classLoader.getResource(fileName).getFile());
+		String feedX = feed + "X";
+		String feedT = feed + "T";
+		int xCount = StringUtils.countMatches(buffer, feedX);
+		int tCount = StringUtils.countMatches(buffer, feedT);
+		int total = xCount + tCount;
+		if (xCount < JConstants.MIN || tCount < JConstants.MIN || total < JConstants.SAMPLE) {
+			log.info(" Du lieu khong du so sanh " + feedX + "(" + xCount + "), " + feedT + "("+ tCount + ")");
+			return result;
+		}
+		int xRate = (int) Math.round((xCount / (double) total) * 100);
+		int tRate = (int) Math.round((tCount / (double) total) * 100);
+		result = new Rate(feed, xCount, tCount, xRate, tRate);
+		log.info("     Ket qua tim chuoi: " + result);
+		return result;
 
-		// File is found
-		System.out.println("File Found : " + file.exists());
-
-		// Read File Content
-		String content = new String(Files.readAllBytes(file.toPath()));
-		System.out.println(content);
-		return content;
 	}
+	
 }

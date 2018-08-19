@@ -5,15 +5,15 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.tx.model.TXThread;
+import com.tx.controller.TXThread;
 
 @SpringBootApplication
 public class BootApplication {
 	
 	@PostConstruct
 	public void init() throws Exception {
-		Thread t1 = new Thread(new TXThread());
-		t1.start();
+		Thread thread = new Thread(new TXThread());
+		thread.start();
 	}
 
 	public static void main(String[] args) throws Exception {

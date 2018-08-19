@@ -1,4 +1,4 @@
-package com.tx.model;
+package com.tx.controller;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,9 +9,9 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tx.BootApplication;
 import com.tx.common.DateUtils;
 import com.tx.common.Utils;
+import com.tx.model.Result;
 
 public class TXThread implements Runnable {
 	static Logger log = LoggerFactory.getLogger(TXThread.class.getName());
@@ -23,10 +23,10 @@ public class TXThread implements Runnable {
 		try {
 			String path = "/txdata";
 			System.setProperty("path", path);
-			log.info("Kết quả dữ liệu mới nhất lưu ở đường dẫn: " + path);
+			log.info("Ket qua du lieu moi nhat luu o duong dan: " + path);
 			File file = new File(path + RESULT);
 			String content = new String(Files.readAllBytes(file.toPath()));
-			log.info("Chuỗi dữ liệu sẽ chạy: " + content);
+			log.info("Chuoi du lieu se chay: " + content);
 			String[] splits = StringUtils.split(content, ",");
 			buffer = splits[0];
 			int id = Integer.parseInt(splits[1]);
@@ -36,47 +36,47 @@ public class TXThread implements Runnable {
 			int sleepCount = 0;
 			boolean isSlept = true;
 			while (true) {
-				log.info("Lấy kết quả từ web id [" + id + "]");
+				log.info("Lay ket qua tu web id [" + id + "]");
 
 				Result response = Utils.getResult(id);
 				if (response == null) {
 					if (nextResult.before(new Date())) {
-						log.info("Đợi dữ liệu update  "+ sleepCount);
+						log.info("Doi du lieu update  "+ sleepCount);
 						Thread.sleep(3 * 1000);
 						sleepCount++;
 						if(sleepCount>50) {
-							log.info("Không thế lấy được kết quả với id  [" + id + "] trong lần đợi " +sleepCount);
+							log.info("Khong the lay duoc ket qua voi id  [" + id + "] trong lan doi " +sleepCount);
 							++id;
 						}
 					} else if (isSlept) {
-						log.info("Đợi dữ liệu update [" + sleepCount + "] 3s");
+						log.info("Doi du lieu update [" + sleepCount + "] 3s");
 						Thread.sleep(3 * 1000);
 						sleepCount++;
 					} else {
-						log.info("Đợi đổ xúc sắc kế tiếp [" + sleepCount + "] 30s");
+						log.info("Slepping phien lam viec tiep theo [" + sleepCount + "] 30s");
 						Thread.sleep(30 * 1000);
 						isSlept = true;
 						sleepCount++;
 					}
 
-					log.info("Sau quá trìn đợi [" + sleepCount + "] " + id);
-					log.info("Kiểm tra kết quả với id " + id);
+					log.info("Sau qua trinh doi [" + sleepCount + "] " + id);
+					log.info("Kiem tra ket qua voi id " + id);
 					if (sleepCount >= 50) {
-						log.error(" Không thể lấy được dữ liệu trong lần thứ [" + sleepCount + "] ");
+						log.error(" Khong the lay duoc du lieu trong lan thu [" + sleepCount + "] ");
 						//break;
 					}
 				} else {
 					buffer += response.getTx();
 					Date responseTime = response.getTime();
 					nextResult = DateUtils.getDateAfter(responseTime, 50 + 15);
-					log.info("Thời gian lấy được kết quả: " + DateUtils.toDateString(responseTime));
-					log.info("Kết quả lấy vế [" + id + "] " + response.getTx() + "," + DateUtils.toDateString(responseTime));
+					log.info("Thoi gian lay duoc ket qua: " + DateUtils.toDateString(responseTime));
+					log.info("Ket qua lay ve [" + id + "] " + response.getTx() + "," + DateUtils.toDateString(responseTime));
 
 					FileWriter writer = new FileWriter(path + RESULT);
 					writer.write(buffer + "," + id + "," + DateUtils.toDateString(responseTime));
 					writer.flush();
 					writer.close();
-					log.info("Thời gian lấy kết quả lần kế tiếp: " + DateUtils.toDateString(nextResult));
+					log.info("Thoi gian lay ket qua lan ke tiep: " + DateUtils.toDateString(nextResult));
 					++id;
 					sleepCount = 0;
 					isSlept = false;

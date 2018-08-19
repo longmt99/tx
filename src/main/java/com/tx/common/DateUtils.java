@@ -12,48 +12,7 @@ public final class DateUtils {
 	public DateUtils() {
 	}
 
-	public static String toDateString(String format) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-		try {
-			return dateFormat.format(new Date());
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.print(e.getMessage());
-			return "";
-		}
-	}
-	/**
-	 * @param date to String: 30-12-2011 10:10:10
-	 * @param format "DD-MM-YYYY hh:mm:ss"
-	 * @return String
-	 */
 	
-	public static String toDateString(Date date) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(JConstants.DATE_FORMAT);
-		try {
-			return dateFormat.format(date);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.print(e.getMessage());
-			return "";
-		}
-	}
-	/**
-	 * date to String By Format
-	 * @param date
-	 * @param format
-	 * @return
-	 */
-	public static String toDateString(Date date,String format) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-		try {
-			return dateFormat.format(date);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.print(e.getMessage());
-			return "";
-		}
-	}
 	/**
 	 * @param string to Date: 30-12-2011 10:10:10
 	 * @param format "HH:mm:ss dd/MM/yyyy"
@@ -99,42 +58,24 @@ public final class DateUtils {
 			return null;
 		}
 	} 
-
-	public static Date toDateGMT(String dateString, String format) {
-		if(dateString.contains(".") && dateString.endsWith("Z")){
-			dateString= dateString.substring(0,dateString.indexOf(".")) +"Z";
-		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-		Date date = null;
+	/**
+	 * @param date to String: 30-12-2011 10:10:10
+	 * @param format "DD-MM-YYYY hh:mm:ss"
+	 * @return String
+	 */
+	
+	public static String toDateString(Date date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(JConstants.DATE_FORMAT);
 		try {
-			date = dateFormat.parse(dateString);
-			return date;
+			return dateFormat.format(date);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.print(e.getMessage());
-			return null;
+			return "";
 		}
 	}
-	 
-	//dd-MM-yyyy
-	public static String addStartTime(String from) {
-			if (from!=null && from.trim().length()>=10) {
-				from=from.substring(0,10) + " 00:00:00";
-			}
-			return from;
-		}
-	//dd-MM-yyyy
-	public static String addEndTime(String to) {
-		if (to!=null && to.trim().length()>=10) {
-			to=to.substring(0,10) + " 23:59:59";
-		}
-		return to;
-	}
-	
-	
 	/**
-	 * Get before minutes from specified date
+	 * Get before seconds from specified date
 	 * @param date
 	 * @param second
 	 * @return
@@ -146,10 +87,4 @@ public final class DateUtils {
 		return calendar.getTime();
 	}
 	
-	
-	
-	public static Date fromStringToDateForFormatter(String date, String dateTimePattern) throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(dateTimePattern);
-		return dateFormat.parse(date);
-	}
 }
