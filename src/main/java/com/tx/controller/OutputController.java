@@ -186,12 +186,16 @@ public class OutputController {
 					nangCao.add(result.getFeed() + "-X");
 					log.info("  " + found + "." + result);
 					Result out = new Result(result.getFeed() + "-X",result.getXrate());
+					out.setXcount(result.getXcount());
+					out.setTcount(result.getTcount());
 					goodResult.add(out);
 				} else if (result.getTrate() >= rate) {
 					found++;
 					nangCao.add(result.getFeed() + "-T");
 					log.info("  " + found + "." + result);
 					Result out = new Result(result.getFeed() + "-T",result.getTrate());
+					out.setXcount(result.getXcount());
+					out.setTcount(result.getTcount());
 					goodResult.add(out);
 				}
 			}else if(type==1){
@@ -200,12 +204,16 @@ public class OutputController {
 					nangCao.add(result.getFeed() + "-X");
 					log.info("  " + found + "." + result);
 					Result out = new Result(result.getFeed() + "-X",result.getXrate());
+					out.setXcount(result.getXcount());
+					out.setTcount(result.getTcount());
 					goodResult.add(out);
 				} else if (result.getTrate() <= rate) {
 					found++;
 					nangCao.add(result.getFeed() + "-T");
 					log.info("  " + found + "." + result);
 					Result out = new Result(result.getFeed() + "-T",result.getTrate());
+					out.setXcount(result.getXcount());
+					out.setTcount(result.getTcount());
 					goodResult.add(out);
 				}
 			}

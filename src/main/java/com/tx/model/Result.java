@@ -11,6 +11,8 @@ public class Result {
 	private String tx;
 	private Date time;
 	private int rate;
+	private int xcount;
+	private int tcount;
 	public Result() {
 
 	}
