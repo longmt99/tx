@@ -13,7 +13,7 @@ public class BootApplication {
 	@PostConstruct
 	public void init() throws Exception {
 		Thread t1 = new Thread(new TXThread());
-		//t1.start();
+		t1.start();
 	}
 
 	public static void main(String[] args) throws Exception {

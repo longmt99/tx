@@ -27,7 +27,7 @@ public class App {
 	private static int min = 2;
 	private static String buffer = "";
 	private static Map<String, Rate> output = new HashMap<String, Rate>();
-
+/*
 	@SuppressWarnings("deprecation")
 	public  void maintest(String[] args) throws Exception {
 		System.out.println("==============================================================================");
@@ -91,7 +91,7 @@ public class App {
 		}
 
 	}
-
+*/
 	private static void storeOutput() throws Exception {
 		List<String> nangCao = new ArrayList<String>();
 		int found = 0;
