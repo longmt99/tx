@@ -12,6 +12,7 @@ public class BootApplication {
 	
 	@PostConstruct
 	public void init() throws Exception {
+		System.setProperty("http.agent", "Chrome");
 		Thread thread = new Thread(new TXThread());
 		thread.start();
 	}
