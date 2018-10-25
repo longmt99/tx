@@ -18,6 +18,11 @@ public class TXThread implements Runnable {
 
 	private static final String RESULT = "/result.txt";
 	private static String buffer = "";
+	private String url; 
+
+	public TXThread(String url) {
+		this.url = url;
+	}
 
 	public void run() {
 		try {
@@ -38,7 +43,7 @@ public class TXThread implements Runnable {
 			while (true) {
 				log.info("Lay ket qua tu web id [" + id + "]");
 
-				Result response = Utils.getResult(id);
+				Result response = Utils.getResult(url, id);
 				if (response == null) {
 					if (nextResult.before(new Date())) {
 						log.info("Doi du lieu update  "+ sleepCount);

@@ -1,12 +1,9 @@
 package com.tx.common;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
@@ -20,13 +17,15 @@ import com.tx.model.Result;
 public class Utils {
 	static Logger log = LoggerFactory.getLogger(Utils.class.getName());
 	
-	public static Result getResult(int id) {
+	public static Result getResult(String theUrl, int id) {
 		
 		Result result = null;
 		StringBuilder content = new StringBuilder();
-		String theUrl = "http://portal.api-core.net/api?c=102&mt=1&at=&rid=" + id;
+		//String theUrl = "http://portal.api-core.net/api?c=102&mt=1&at=&rid=" + id;
+		//http://manvip.club/portal/api?c=102&mt=1&at=&rid=32027
+		//http://manvip.club/portal/api?c=102&rid=80825&mt=1&at=
 		try {
-			URL url = new URL(theUrl);
+			URL url = new URL(theUrl + id);
 
 			URLConnection urlConnection = url.openConnection();
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
