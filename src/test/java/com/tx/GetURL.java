@@ -11,7 +11,7 @@ public class GetURL {
 	public static void main(String[] args) throws IOException {
 		System.setProperty("http.agent", "Chrome");
 		StringBuilder content = new StringBuilder();
-		String theUrl = "http://manvip.club/portal/api?c=102&rid=80868&mt=1&at=";
+		String theUrl = "https://manvip.club/portal/api?c=102&mt=1&at=&rid=261479";
 		try {
 			URL url = new URL(theUrl);
 

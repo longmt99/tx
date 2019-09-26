@@ -1,2 +1,3 @@
 server.port: 6688 
-service.url: https://manvip.club/portal/api?c=102&mt=1&at=&rid=
+service.url: https://api.portalnaga.club/api?c=102&mt=1&at=&rid=10908
+https://api.portalnaga.club/api?c=102&rid=10908&mt=0&at=

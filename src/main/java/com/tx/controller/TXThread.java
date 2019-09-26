@@ -85,6 +85,7 @@ public class TXThread implements Runnable {
 					++id;
 					sleepCount = 0;
 					isSlept = false;
+					Thread.sleep(350);
 				}
 			}
 		} catch (Exception e) {
