@@ -17,7 +17,7 @@ public class BootApplication {
 	public void init() throws Exception {
 		System.setProperty("http.agent", "Chrome");
 		Thread thread = new Thread(new TXThread(url));
-		thread.start();
+		//thread.start();
 	}
 
 	public static void main(String[] args) throws Exception {
